@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+
+# Virtual environments
+myvenv/
+venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# Data (keep structure, ignore raw files)
+data/raw/
+*.csv
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Misc
+allfiles.txt
+.env
