@@ -7,7 +7,7 @@ All visualizations referenced below are generated as part of the analysis and sa
 ## From Chart 1: AQI Timeline
 
 **Visualization:**  
-[View Chart 1 – AQI Timeline](outputs/01_aqi_timeline.png)
+[View Chart 1 – AQI Timeline](../../outputs/charts/01_aqi_timeline.png)
 
 **Question:**  
 When are pollution spikes observed?
@@ -23,7 +23,7 @@ Pollution spikes occur mainly in winter, indicating that seasonal factors strong
 ## From Chart 2: Monthly Average AQI
 
 **Visualization:**  
-[View Chart 2 – Monthly Average AQI](outputs/02_monthly_averages.png)
+[View Chart 2 – Monthly Average AQI](../../outputs/charts/02_monthly_averages.png)
 
 **Question:**  
 Which months consistently have bad air quality?
@@ -39,7 +39,7 @@ Air quality is consistently worst during winter months and best during the monso
 ## From Chart 3: AQI Distribution by Season
 
 **Visualization:**  
-[View Chart 3 – AQI Distribution by Season](outputs/03_seasonal_boxplots.png)
+[View Chart 3 – AQI Distribution by Season](../../outputs/charts/03_seasonal_boxplots.png)
 
 **Question:**  
 How does AQI vary across different seasons?
@@ -55,7 +55,7 @@ Winter pollution is not only severe but also highly variable, making it the most
 ## From Chart 4: AQI Comparison (2023 vs 2024)
 
 **Visualization:**  
-[View Chart 4 – AQI Comparison (2023 vs 2024)](outputs/04_2023_vs_2024.png)
+[View Chart 4 – AQI Comparison (2023 vs 2024)](../../outputs/charts/04_2023_vs_2024.png)
 
 **Question:**  
 Is air quality in 2024 better or worse than in 2023?
@@ -71,7 +71,7 @@ Air quality in 2024 appears marginally better than in 2023, but the improvement 
 ## From Chart 5: Wind Speed vs AQI
 
 **Visualization:**  
-[View Chart 5 – Wind Speed vs AQI](outputs/05_wind_vs_aqi.png)
+[View Chart 5 – Wind Speed vs AQI](../../outputs/charts/05_wind_vs_aqi.png)
 
 **Question:**  
 Does wind reduce pollution levels?
@@ -87,7 +87,7 @@ Wind helps disperse pollutants, leading to improved air quality. However, the wi
 ## From Chart 6: Impact of Rain on AQI
 
 **Visualization:**  
-[View Chart 6 – Rain Impact on AQI](outputs/06_rain_impact.png)
+[View Chart 6 – Rain Impact on AQI](../../outputs/charts/06_rain_impact.png)
 
 **Question:**  
 How effective is rain at cleaning the air?
@@ -103,7 +103,7 @@ Rain effectively reduces air pollution by washing out particulate matter, but th
 ## From Chart 7: Temperature vs AQI Correlation
 
 **Visualization:**  
-[View Chart 7 – Temperature vs AQI Correlation](outputs/07_temp_correlation.png)
+[View Chart 7 – Temperature vs AQI Correlation](../../outputs/charts/07_temp_correlation.png)
 
 **Question:**  
 Why is winter pollution worse?
