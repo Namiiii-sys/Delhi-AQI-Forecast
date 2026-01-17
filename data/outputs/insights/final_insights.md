@@ -11,6 +11,7 @@ This section summarizes the key learnings derived from the overall analysis of D
 - This means bad air is **very common**, not rare
 - Truly clean air days are **less than half the year**
 
+
 **What this tells us:**  
 Delhi’s air pollution is not an occasional problem, it is something people live with regularly.
 
