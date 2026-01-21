@@ -1,0 +1,42 @@
+{
+  "model_name": "Linear Regression",
+  "target": "target_aqi",
+  "prediction_horizon_days": 7,
+
+  "metrics": {
+    "baseline_mae": 41.31,
+    "model_mae": 32.81,
+    "improvement_percent": 20.6
+  },
+
+  "feature_columns": [
+    "year",
+    "month",
+    "day_of_week",
+    "is_weekend",
+    "number_of_monitoring_stations",
+    "temperature_2m_max",
+    "temperature_2m_min",
+    "temperature_2m_mean",
+    "precipitation_mm",
+    "humidity_percent",
+    "wind_speed",
+    "has_O3",
+    "has_NO2",
+    "has_PM2.5",
+    "has_PM10",
+    "has_CO",
+    "Yesterday_AQI",
+    "last_7days_avg",
+    "last_14days_avg",
+    "yesterday_wind",
+    "yesterday_temp",
+    "had_rain_yesterday"
+  ],
+
+  "notes": [
+    "Short-term AQI forecasting model",
+    "Predictions reliable up to 7 days",
+    "Designed for activity-level risk assessment"
+  ]
+}

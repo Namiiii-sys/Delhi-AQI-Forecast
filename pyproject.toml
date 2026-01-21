@@ -1,0 +1,13 @@
+[project]
+name = "delhi-air-quality-project"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "numpy>=2.4.1",
+    "pandas>=2.3.3",
+    "plotly>=6.5.2",
+    "scikit-learn>=1.8.0",
+    "streamlit>=1.53.0",
+]
