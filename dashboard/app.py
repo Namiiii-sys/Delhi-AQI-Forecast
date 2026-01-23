@@ -51,7 +51,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 def load_assets():
     model = pickle.load(open(BASE_DIR / "models/aqi_linear_model.pkl", "rb"))
     metadata = json.load(open(BASE_DIR / "models/model_metadata.json"))
-    df = pd.read_csv(BASE_DIR / "data/processed/final_model_features.csv")
+    df = pd.read_csv(BASE_DIR / "data/final-csv/final_model_features.csv")
     df["date"] = pd.to_datetime(df["date"])
     return model, metadata, df
 
