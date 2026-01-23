@@ -273,10 +273,6 @@ with st.expander("Model Configuration", expanded=True):
             st.info("Using default feature set")
             st.caption("Metadata file not found")
 
-# Show data status
-if not df.empty:
-    data_info = f"Data loaded: {len(df)} records ({df['date'].min().date()} to {df['date'].max().date()})"
-    st.info(data_info)
 
 # -------------------------------------------------
 # EVENT DETAILS INPUT - COMPACT
@@ -321,16 +317,16 @@ with col2:
     
     vulnerable_groups = st.multiselect(
         "Attendee Considerations",
-        ["Children present", "Elderly attendees", "Respiratory conditions",
-         "Pregnant individuals", "Cardiac patients", "Professional athletes",
-         "General population only"],
-        default=["General population only"]
+        ["Children", "Elderly attendees", "Respiratory conditions",
+         "Pregnant Women", "Cardiac patients", "Professional athletes",
+         "General population"],
+        default=["General population"]
     )
 
 # Check for sensitive groups
 has_sensitive_groups = any(group in vulnerable_groups for group in 
-                          ["Children present", "Elderly attendees", "Respiratory conditions",
-                           "Pregnant individuals", "Cardiac patients"]) and "General population only" not in vulnerable_groups
+                          ["Children", "Elderly attendees", "Respiratory conditions",
+                           "Pregnant Women", "Cardiac patients"]) and "General population" not in vulnerable_groups
 
 # -------------------------------------------------
 # RECOMMEND BUTTON IMMEDIATELY BELOW
@@ -393,51 +389,38 @@ if st.button("Find Best Dates", type="primary", use_container_width=True):
         # Sort by score (descending)
         predictions.sort(key=lambda x: x['score'], reverse=True)
         
-        # Display top recommendations - USING STREAMLIT COMPONENTS
+        # Display top recommendations - USING STREAMLIT NATIVE COMPONENTS
         if predictions:
             st.markdown('<div class="section-header">Top Recommendations</div>', unsafe_allow_html=True)
             
             cols = st.columns(3)
             for idx, pred in enumerate(predictions[:3]):
                 with cols[idx]:
-                    # Determine badge color based on badge_class
-                    if 'good' in pred['badge_class']:
-                        badge_bg = '#064e3b'
-                        badge_color = '#10b981'
-                    elif 'moderate' in pred['badge_class']:
-                        badge_bg = '#78350f'
-                        badge_color = '#f59e0b'
-                    else:
-                        badge_bg = '#7f1d1d'
-                        badge_color = '#ef4444'
+                   
                     
-                    # Build HTML string first
-                    card_html = f"""
-<div style="background-color: #1e293b; border-radius: 10px; padding: 1.5rem; margin-bottom: 1rem; border: 1px solid #334155; height: 100%;">
-    <div style="text-align: center; margin-bottom: 1rem;">
-        <div style="font-size: 2rem; font-weight: 700; color: {pred['color']};">{pred['predicted_aqi']:.0f}</div>
-        <div style="color: #94a3b8; font-size: 0.9rem;">Predicted AQI</div>
-    </div>
-    
-    <div style="text-align: center; margin-bottom: 1rem;">
-        <div style="font-size: 1.25rem; font-weight: 600; color: #f8fafc; margin-bottom: 0.5rem;">{pred['date'].strftime('%b %d, %Y')}</div>
-        <span style="display: inline-block; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-right: 0.5rem; background-color: {badge_bg}; color: {badge_color};">{pred['suitability']}</span>
-    </div>
-    
-    <div style="color: #cbd5e1; font-size: 0.9rem; margin-top: 1rem; text-align: center;">{pred['advice']}</div>
-    
-    <div style="margin-top: 1rem; text-align: center;">
-        <div style="font-size: 0.85rem; color: #94a3b8;">Suitability Score</div>
-        <div style="font-size: 1.5rem; font-weight: 700; color: #f8fafc;">{pred['score']:.0f}/100</div>
-    </div>
-</div>
-"""
-                    st.markdown(card_html, unsafe_allow_html=True)
+                    # Use Streamlit native components
+                    st.markdown(f"### {pred['date'].strftime('%b %d, %Y')}")
+                    
+                    # AQI Display
+                    st.metric(
+                        label="Predicted AQI",
+                        value=f"{pred['predicted_aqi']:.0f}",
+                        delta=pred['category']
+                    )
+                    
+                    # Suitability badge
+                    st.info(f"**{pred['suitability']}** - {pred['advice']}")
+                    
+                    # Score
+                    st.metric(
+                        label="Suitability Score",
+                        value=f"{pred['score']:.0f}/100"
+                    )
+                    
+                    st.markdown("---")
             
-            # Show all predictions in a table
             st.markdown('<div class="section-header">All Dates Analysis</div>', unsafe_allow_html=True)
             
-            # Create dataframe for display
             pred_data = []
             for p in predictions:
                 pred_data.append({
