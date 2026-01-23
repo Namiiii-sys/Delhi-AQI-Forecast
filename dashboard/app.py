@@ -1,4 +1,3 @@
-# dashboard/app.py
 
 import streamlit as st
 import pandas as pd
@@ -9,12 +8,9 @@ from pathlib import Path
 import pickle
 import json
 
-# -------------------------------------------------
-# PAGE CONFIG (ONLY HERE)
-# -------------------------------------------------
+
 st.set_page_config(
     page_title="Delhi AQI Forecasting System",
-    page_icon="🌫️",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -50,9 +46,7 @@ st.markdown("""
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# -------------------------------------------------
-# LOAD MODEL & DATA
-# -------------------------------------------------
+
 @st.cache_resource
 def load_assets():
     model = pickle.load(open(BASE_DIR / "models/aqi_linear_model.pkl", "rb"))
@@ -64,9 +58,7 @@ def load_assets():
 model, metadata, df = load_assets()
 FEATURE_COLS = metadata["feature_columns"]
 
-# -------------------------------------------------
-# HELPERS
-# -------------------------------------------------
+
 def get_aqi_category(aqi):
     if aqi <= 50: return "Good", "#10b981"
     if aqi <= 100: return "Satisfactory", "#f59e0b"
@@ -74,9 +66,7 @@ def get_aqi_category(aqi):
     if aqi <= 300: return "Poor", "#dc2626"
     return "Very Poor", "#991b1b"
 
-# -------------------------------------------------
-# SIDEBAR CONTROLS
-# -------------------------------------------------
+
 with st.sidebar:
     st.divider()
     selected_date = st.date_input(
@@ -91,24 +81,18 @@ with st.sidebar:
     st.metric("Improvement", "20.6%")
     st.caption("Linear Regression")
 
-# -------------------------------------------------
-# HEADER
-# -------------------------------------------------
+
 st.title("Delhi Air Quality Index Forecast")
 st.caption("Next-day AQI prediction using ML")
 
-# -------------------------------------------------
-# PREDICTION
-# -------------------------------------------------
+
 latest = df.iloc[-1]
 X_pred = pd.DataFrame([latest[FEATURE_COLS]])
 predicted_aqi = round(float(model.predict(X_pred)[0]), 1)
 
 category, color = get_aqi_category(predicted_aqi)
 
-# -------------------------------------------------
-# AQI DISPLAY
-# -------------------------------------------------
+
 st.markdown(f"""
 <div class="section" style="border-left:6px solid {color};">
     <div class="aqi-value" style="color:{color};">{predicted_aqi:.0f}</div>
@@ -117,9 +101,6 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-# -------------------------------------------------
-# WEATHER SNAPSHOT
-# -------------------------------------------------
 st.subheader("Weather Snapshot")
 cols = st.columns(4)
 
@@ -139,9 +120,7 @@ for col, (label, value) in zip(cols, weather_items):
         </div>
         """, unsafe_allow_html=True)
 
-# -------------------------------------------------
-# AQI TREND
-# -------------------------------------------------
+
 st.subheader("Recent AQI Trend (Last 7 Days)")
 
 if "target_aqi" in df.columns:
@@ -163,9 +142,6 @@ if "target_aqi" in df.columns:
     )
     st.plotly_chart(fig, use_container_width=True)
 
-# -------------------------------------------------
-# FOOTER
-# -------------------------------------------------
 st.markdown("""
 <div class="footer">
 Delhi AQI Forecasting System • Linear Regression • Educational Project
