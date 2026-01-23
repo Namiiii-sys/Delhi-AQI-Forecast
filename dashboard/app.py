@@ -204,14 +204,8 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# -------------------------------------------------
-# PATH SETUP
-# -------------------------------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# -------------------------------------------------
-# LOAD MODEL + METADATA + DATA
-# -------------------------------------------------
 @st.cache_resource
 def load_model_and_data():
     model_path = BASE_DIR / "models" / "aqi_linear_model.pkl"
@@ -229,9 +223,7 @@ def load_model_and_data():
 
     return model, metadata, df
 
-# -------------------------------------------------
-# HELPER FUNCTIONS
-# -------------------------------------------------
+
 def get_aqi_category(aqi):
     """Return AQI category and corresponding color"""
     if aqi <= 50:
@@ -307,15 +299,10 @@ def get_health_advisory(aqi):
             "color": "#991b1b"
         }
 
-# -------------------------------------------------
-# LOAD DATA
-# -------------------------------------------------
 model, metadata, df = load_model_and_data()
 FEATURE_COLS = metadata["feature_columns"]
 
-# -------------------------------------------------
-# SIMPLE SIDEBAR (Like original)
-# -------------------------------------------------
+
 with st.sidebar:
     st.title("Delhi AQI Forecast")
     st.caption("ML-based next-day AQI prediction")
@@ -333,9 +320,6 @@ with st.sidebar:
     st.metric("Improvement", "20.6%")
     st.caption("Linear Regression")
 
-# -------------------------------------------------
-# MAIN DASHBOARD - COMPACT
-# -------------------------------------------------
 
 # Header
 st.markdown("""
@@ -343,9 +327,6 @@ st.markdown("""
 <div class="dashboard-subtitle">Next-day AQI prediction using Linear Regression model</div>
 """, unsafe_allow_html=True)
 
-# -------------------------------------------------
-# PREDICTION SECTION - COMPACT
-# -------------------------------------------------
 latest = df.iloc[-1].copy()
 
 # Make prediction
@@ -379,7 +360,6 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-# Compact Confidence Interval
 lower_bound = max(0, predicted_aqi - 32.8)
 upper_bound = predicted_aqi + 32.8
 left_position = min(100, max(0, (predicted_aqi - 32.8) / 500 * 100))
@@ -403,9 +383,6 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-# -------------------------------------------------
-# WEATHER SNAPSHOT - COMPACT
-# -------------------------------------------------
 st.markdown('<div class="section-header-compact">Current Weather Conditions</div>', unsafe_allow_html=True)
 
 weather_data = [
@@ -426,9 +403,7 @@ for idx, weather in enumerate(weather_data):
         </div>
         """, unsafe_allow_html=True)
 
-# -------------------------------------------------
-# HEALTH ADVISORY - COMPACT
-# -------------------------------------------------
+
 st.markdown('<div class="section-header-compact">Health Advisory</div>', unsafe_allow_html=True)
 
 advisory = get_health_advisory(predicted_aqi)
@@ -443,7 +418,7 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-# Risk Groups - Compact
+
 st.markdown("""
 <div class="compact-card">
     <div style="font-weight: 600; color: #f8fafc; margin-bottom: 1rem; font-size: 0.95rem;">
