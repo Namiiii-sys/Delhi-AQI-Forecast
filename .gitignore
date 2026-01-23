@@ -11,7 +11,8 @@ __pycache__/
 
 # Data (keep structure, ignore raw files)
 data/raw/
-*.csv
+data/processed/
+
 
 # Jupyter
 .ipynb_checkpoints/
